@@ -16,7 +16,10 @@ function merge() {
     
     const heads = sheetscr.getRange(hdsidx, 1, (sheetscr.getLastRow() + 1 - hdsidx), sheetscr.getLastColumn()).getDisplayValues().shift();
     var data = sheetscr.getRange(hdsidx, 1, (sheetscr.getLastRow() + 1 - hdsidx), sheetscr.getLastColumn()).getDisplayValues()
-    .map(function(row) {row[heads.indexOf("Numéro de tél")] = "'" + row[heads.indexOf("Numéro de tél")];
+    .map(function(row) {row[heads.indexOf("Tél")] = "'" + row[heads.indexOf("Tél")];
+                        row[heads.indexOf("Téléphone")] = "'" + row[heads.indexOf("Téléphone")];
+                        row[heads.indexOf("Numéro de portable")] = "'" + row[heads.indexOf("Numéro de portable")];
+                        row[heads.indexOf("Numéro de tél")] = "'" + row[heads.indexOf("Numéro de tél")];
                         row[heads.indexOf("Nom")] = properCase(row[heads.indexOf("Nom")]);
                         row[heads.indexOf("Prénom")] = properCase(row[heads.indexOf("Prénom")]);
                         return (row);})
