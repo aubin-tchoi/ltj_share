@@ -1,6 +1,6 @@
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
-  ui.createMenu('Import')
+  ui.createMenu("Import de données")
   .addItem("Importer les données d'un autre Google Sheets", "merge")
   .addToUi();
 }
