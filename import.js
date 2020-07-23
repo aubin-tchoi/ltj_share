@@ -1,3 +1,10 @@
+function onOpen() {
+  const ui = SpreadsheetApp.getUi();
+  ui.createMenu('Import')
+  .addItem("Importer les données d'un autre Google Sheets", "merge")
+  .addToUi();
+}
+
 function merge() {
   
   function properCase(phrase) {
@@ -15,7 +22,7 @@ function merge() {
                         return (row);})
     .map(function(r) {var row = []; columns.forEach(function(el) {row.push(r[heads.indexOf(el)]);}); return (row);})
     
-    if (data.length > 0) {
+    if (data.length > 0) {
       sheetdst.getRange(1, 1, 1, columns.length)
       .setValues([columns])
       .setBackgroundRGB(153, 204, 255); 
@@ -38,7 +45,7 @@ function merge() {
   }
   
   colonnesstr = Browser.inputBox("Import d'un fichier", 
-                              "Entrez le nom des colonnes à importer en les séparant d'une virgule (pour toutes les importer, entrez 'Toutes'):",
+                              "Entrez le nom des colonnes à importer en les séparant d'une virgule (pour toutes les importer, entrez 'Toutes' sans guillemets):",
                               Browser.Buttons.OK_CANCEL);
   if (colonnesstr === "cancel" || colonnesstr == "") {
     return;
@@ -52,9 +59,14 @@ function merge() {
   }
   
   const source = SpreadsheetApp.openByUrl(sourceURL).getSheetByName(sourcename),
-      destination = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet(),
+      destination = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  if (colonnes.toLowerCase() == "toutes") {
+    var colonnes = source.getRange(position_header, 1, 1, source.getLastColumn()).getDisplayValues().shift()
+    } else {
       colonnes = colonnesstr.split(", ");
-      
+    }
+  
   merge2(source, destination, colonnes, position_header);
   
 }
