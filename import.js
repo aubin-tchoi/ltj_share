@@ -27,7 +27,6 @@ function merge() {
     
     if (data.length > 0) {
       sheetdst.getRange(1, 1, 1, columns.length)
-      .setValues([columns])
       .setBackgroundRGB(153, 204, 255); 
       sheetdst.getRange(sheetdst.getLastRow() + 1, 1, data.length, data[0].length).setValues(data);
     }
