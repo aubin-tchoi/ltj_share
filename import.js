@@ -64,7 +64,7 @@ function merge() {
   const source = SpreadsheetApp.openByUrl(sourceURL).getSheetByName(sourcename),
       destination = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   
-  if (colonnes.toLowerCase() == "toutes") {
+  if (colonnesstr.toLowerCase() == "toutes") {
     var colonnes = source.getRange(position_header, 1, 1, source.getLastColumn()).getDisplayValues().shift()
     } else {
       colonnes = colonnesstr.split(", ");
