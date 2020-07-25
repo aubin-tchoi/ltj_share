@@ -7,15 +7,18 @@ function onOpen() {
 
 function archiving() {
   
-  const ssOld = SpreadsheetApp.getActiveSpreadsheet();
-  const ssNew = SpreadsheetApp.create(ssOld.getName());
+  const ssOld = SpreadsheetApp.getActiveSpreadsheet(),
+      ssNew = SpreadsheetApp.create(ssOld.getName()),
+      erase_from = 2,
+      folder_id = "0AKsJ624j8TbXUk9PVA";
+  
   ssOld.getSheets().forEach(function(s) {s.copyTo(ssNew);});
   
   var file = DriveApp.getFileById(ssNew.getId());
-  DriveApp.getFolderById("1LOk5WHg2hwLNVwuLG31625JY-nfUbHrW").addFile(file);
+  DriveApp.getFolderById(folder_id).addFile(file);
   
   ssNew.deleteSheet(ssNew.getSheetByName("Feuille 1"));
-  ssNew.getSheets().forEach(function(s) {s.setName(s.getName().match(/Copie de (.+)/)[1]);});
+  ssNew.getSheets().forEach(function(s) {s.setName(s.getName().match(/Copie de (.+)/)[1]);});
   
   confirm = Browser.msgBox("Archivage", 
                            "Le fichier a été archivé dans le dossier 'Archives', son contenu sera maintenant effacé.",
@@ -25,7 +28,7 @@ function archiving() {
   }
   
   try {
-    ssOld.getSheets().forEach(function(s) {s.getRange(2, 1, (s.getLastRow() - 1), s.getLastColumn())
+    ssOld.getSheets().forEach(function(s) {s.getRange(erase_from, 1, (s.getLastRow() + 1 - erase_from), s.getLastColumn())
     .clearContent()
     .setBackground('white');
                                           });
