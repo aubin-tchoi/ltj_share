@@ -15,7 +15,7 @@ function merge() {
   function merge2(sheetscr, sheetdst, columns, hdsidx) {
     
     const heads = sheetscr.getRange(hdsidx, 1, (sheetscr.getLastRow() + 1 - hdsidx), sheetscr.getLastColumn()).getDisplayValues().shift();
-    var data = sheetscr.getRange(hdsidx, 1, (sheetscr.getLastRow() + 1 - hdsidx), sheetscr.getLastColumn()).getDisplayValues()
+    var data = sheetscr.getRange((hdsidx + 1), 1, (sheetscr.getLastRow() - hdsidx), sheetscr.getLastColumn()).getDisplayValues()
     .map(function(row) {row[heads.indexOf("Tél")] = "'" + row[heads.indexOf("Tél")];
                         row[heads.indexOf("Téléphone")] = "'" + row[heads.indexOf("Téléphone")];
                         row[heads.indexOf("Numéro de portable")] = "'" + row[heads.indexOf("Numéro de portable")];
@@ -27,7 +27,8 @@ function merge() {
     
     if (data.length > 0) {
       sheetdst.getRange(1, 1, 1, columns.length)
-      .setBackgroundRGB(153, 204, 255); 
+      .setValues([columns])
+      .setBackgroundRGB(255, 0, 127);
       sheetdst.getRange(sheetdst.getLastRow() + 1, 1, data.length, data[0].length).setValues(data);
     }
   }
