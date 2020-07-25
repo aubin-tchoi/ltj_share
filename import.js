@@ -14,8 +14,8 @@ function merge() {
   
   function merge2(sheetscr, sheetdst, columns, hdsidx) {
     
-    const heads = sheetscr.getRange(hdsidx, 1, (sheetscr.getLastRow() + 1 - hdsidx), sheetscr.getLastColumn()).getDisplayValues().shift();
-    var data = sheetscr.getRange((hdsidx + 1), 1, (sheetscr.getLastRow() - hdsidx), sheetscr.getLastColumn()).getDisplayValues()
+    const heads = sheetscr.getRange(hdsidx, 1, 1, sheetscr.getLastColumn()).getDisplayValues().shift();
+    var data = sheetscr.getRange(hdsidx, 1, (sheetscr.getLastRow() + 1 - hdsidx), sheetscr.getLastColumn()).getDisplayValues()
     .map(function(row) {row[heads.indexOf("Tél")] = "'" + row[heads.indexOf("Tél")];
                         row[heads.indexOf("Téléphone")] = "'" + row[heads.indexOf("Téléphone")];
                         row[heads.indexOf("Numéro de portable")] = "'" + row[heads.indexOf("Numéro de portable")];
@@ -23,8 +23,8 @@ function merge() {
                         row[heads.indexOf("Nom")] = properCase(row[heads.indexOf("Nom")]);
                         row[heads.indexOf("Prénom")] = properCase(row[heads.indexOf("Prénom")]);
                         return (row);})
-    .map(function(r) {var row = []; columns.forEach(function(el) {row.push(r[heads.indexOf(el)]);}); return (row);})
-    
+    .map(function(r) {var row = []; columns.forEach(function(el) {row.push(r[heads.indexOf(el)]);}); return (row);});
+    data.shift();
     if (data.length > 0) {
       sheetdst.getRange(1, 1, 1, columns.length)
       .setValues([columns])
