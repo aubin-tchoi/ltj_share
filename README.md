@@ -1,4 +1,4 @@
-# Some useful functionnalities to implement on a Google Drive
+## Some useful functionnalities to implement on a Google Drive
 
 ### Democratization of some of the ressources I  developped during my internship at LTJ.
 
